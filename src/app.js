@@ -4,7 +4,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const copyFile = (src, dest) => {
+const copyFile = () => {
+  const [src, dest] = process.argv.slice(2);
   const sameDir = path.dirname(src) === dest;
 
   const fileExt = path.extname(src);
@@ -12,6 +13,8 @@ const copyFile = (src, dest) => {
   const copiedFileName = `${fileName}-copy${fileExt}`;
 
   if (sameDir) {
+    console.log("You're trying to copy file into the same location");
+
     return;
   }
 
@@ -21,5 +24,7 @@ const copyFile = (src, dest) => {
     console.log(err.message);
   }
 };
+
+copyFile();
 
 module.exports = { copyFile };
